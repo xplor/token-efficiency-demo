@@ -1,0 +1,12 @@
+{
+  "name": "vibe-vs-verified-deck",
+  "private": true,
+  "description": "Generates ../vibe-vs-verified.pptx",
+  "scripts": {
+    "build": "node build-deck.js ../vibe-vs-verified.pptx"
+  },
+  "dependencies": {
+    "jszip": "3.10.1",
+    "pptxgenjs": "3.12.0"
+  }
+}

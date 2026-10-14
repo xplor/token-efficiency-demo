@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe vs. Verified Cheat Sheet</title>
+<style>
+  :root {
+    --violet: #6923F4; --purple: #401F9F; --teal: #0FA3A4; --aqua: #3ACBCA;
+    --ink: #282F35; --slate: #545D63; --muted: #8C969F; --mist: #F1F6FA; --line: #EAF0F4; --lav: #BABEFC;
+  }
+  @page { size: A4; margin: 9mm 11mm; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--ink); font: 10.2pt/1.38 Calibri, "Segoe UI", Arial, sans-serif; }
+  .page { max-width: 186mm; margin: 0 auto; }
+  .page + .page { break-before: page; }
+  header { background: var(--violet); color: #fff; border-radius: 8px; padding: 10px 16px 11px; display: flex; justify-content: space-between; align-items: end; }
+  header h1 { margin: 0; font-size: 22pt; line-height: 1.05; }
+  header p { margin: 2px 0 0; color: var(--mist); font-size: 11pt; }
+  header .tag { color: var(--aqua); font-weight: 700; font-size: 9.5pt; text-align: right; }
+  h2 { color: var(--purple); font-size: 12.5pt; margin: 0 0 5px; }
+  h2 .n { display: inline-grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; background: var(--teal); color: #fff; font-size: 9.5pt; margin-right: 6px; vertical-align: 1px; }
+  section { margin-top: 10px; }
+  p { margin: 0; }
+  .card { background: var(--mist); border-radius: 8px; padding: 9px 12px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .loop { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .loop div { background: var(--mist); border-radius: 8px; padding: 7px 8px; }
+  .loop b { display: block; font-size: 12pt; color: var(--violet); }
+  .loop div:nth-child(2) b { color: var(--purple); } .loop div:nth-child(3) b { color: var(--teal); }
+  .loop div:nth-child(4) b { color: var(--slate); } .loop div:nth-child(5) b { color: var(--ink); }
+  .loop span { font-size: 9pt; color: var(--slate); }
+  table { width: 100%; border-collapse: collapse; font-size: 9.4pt; }
+  th { background: var(--purple); color: #fff; text-align: left; padding: 4px 7px; font-weight: 700; }
+  td { padding: 3.5px 7px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  td:first-child { font-weight: 700; }
+  code, pre { font-family: Consolas, "Cascadia Mono", monospace; font-size: 8.8pt; }
+  td code, p code, .flow code, .layer code { background: var(--mist); color: var(--ink); padding: 0 3px; border-radius: 3px; }
+  pre { background: var(--ink); color: var(--mist); border-radius: 8px; padding: 8px 11px; margin: 0; white-space: pre-wrap; line-height: 1.35; }
+  pre .c { color: var(--aqua); }
+  ul { margin: 2px 0 0; padding-left: 16px; } li { margin: 1px 0; }
+  .no li::marker { content: "✗  "; color: var(--slate); }
+  .yes li::marker { content: "✓  "; color: var(--teal); }
+  .callout { background: var(--mist); border-radius: 8px; padding: 7px 12px; color: var(--purple); font-weight: 700; margin-top: 10px; }
+  .phase { display: grid; grid-template-columns: 74px 1fr; gap: 8px; align-items: center; margin-bottom: 5px; }
+  .phase b { background: var(--violet); color: #fff; border-radius: 6px; text-align: center; font-size: 8.5pt; letter-spacing: .06em; padding: 3px 0; }
+  .phase:nth-child(2) b { background: var(--teal); } .phase:nth-child(3) b { background: var(--purple); } .phase:nth-child(4) b { background: var(--slate); }
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 7px; }
+  .flow div { background: var(--mist); border-radius: 8px; padding: 6px 8px; font-size: 9pt; color: var(--slate); }
+  .flow b { display: block; font-size: 11pt; color: var(--purple); }
+  .layer { display: grid; grid-template-columns: 22px 1fr 33%; gap: 8px; align-items: center; border-radius: 8px; padding: 5px 9px; margin-bottom: 4px; color: #fff; font-size: 9pt; }
+  .layer .k { font-size: 13pt; font-weight: 700; text-align: center; }
+  .layer b { font-size: 10pt; } .layer .when { font-weight: 700; }
+  .l0 { background: var(--purple); width: 85%; } .l1 { background: var(--violet); width: 90%; } .l2 { background: var(--teal); width: 95%; } .l3 { background: var(--slate); }
+  .page:last-child section { margin-top: 6px; }
+  footer { margin-top: 10px; font-size: 8.5pt; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; }
+  @media print { body { font-size: 9.5pt; } section { margin-top: 8px; } td { padding: 2.5px 6px; } th { padding: 3px 6px; } table { font-size: 8.9pt; } pre { font-size: 8.4pt; padding: 7px 10px; } .callout { margin-top: 8px; padding: 6px 11px; } .loop div { padding: 6px 7px; } header { padding: 8px 14px 9px; } header h1 { font-size: 20pt; } footer { margin-top: 8px; } }
+  @media screen { body { padding: 16px; } .page { padding-bottom: 24px; } .page + .page { border-top: 1px dashed var(--line); padding-top: 24px; } }
+  @media screen and (max-width: 700px) { .grid2, .loop, .flow { grid-template-columns: 1fr; } .layer { width: 100%; grid-template-columns: 22px 1fr; } .layer .when { grid-column: 2; } header { display: block; } header .tag { text-align: left; margin-top: 6px; } }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <div><h1>Vibe vs. Verified</h1><p>Token-efficient AI development with Claude Code (and Cursor)</p></div>
+    <div class="tag">Cheat sheet</div>
+  </header>
+
+  <div class="callout">The goal isn't fewer tokens. It's more correct, verified progress per minute, per token and per prompt. Plan to keep the agent on target; manage context to keep it cheap.</div>
+
+  <section>
+    <h2><span class="n">1</span>The loop</h2>
+    <div class="loop">
+      <div><b>Aim</b><span>Six-part prompt. Say what you already know.</span></div>
+      <div><b>Plan</b><span>Make its thinking visible. Review it; then it's the contract.</span></div>
+      <div><b>Build</b><span>Only what the plan says. No drive-by refactors.</span></div>
+      <div><b>Prove</b><span>Narrowest test → typecheck → full suite once.</span></div>
+      <div><b>Reset</b><span>New goal → /clear. Same goal, long chat → compact.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>The six-part prompt</h2>
+    <div class="grid2">
+      <table>
+        <tr><th>Part</th><th>Answers</th></tr>
+        <tr><td>Goal</td><td>What observable result exists afterwards?</td></tr>
+        <tr><td>Acceptance</td><td>How do we know it's right? Include the edge cases.</td></tr>
+        <tr><td>Context</td><td>Which files, symbols, tests, docs, logs?</td></tr>
+        <tr><td>Constraints</td><td>What must not change? What not to read?</td></tr>
+        <tr><td>Plan?</td><td>Plan first (and stop), or straight to the edit?</td></tr>
+        <tr><td>Verify</td><td>The exact command that proves it.</td></tr>
+      </table>
+<pre><span class="c">Goal:</span> free STANDARD shipping when the discounted
+  subtotal is at least £100. Express never free.
+<span class="c">Acceptance:</span> £99.99 → £5; exactly £100 → free;
+  express £150 → £15; £120 − 20% = £96 → £5
+<span class="c">Context:</span> @shipping-price.ts @pricing-policy.ts
+  not src/shipping/ (method choice, carrier costs)
+<span class="c">Constraints:</span> threshold lives in PricingPolicy,
+  no floats, don't weaken tests
+<span class="c">Plan:</span> ≤ 8 lines, then stop for my review
+<span class="c">Verify:</span> npm test -- tests/pricing</pre>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>Planning keeps the agent on target</h2>
+    <p style="margin-bottom:6px">Every agent plans. Plan mode makes it plan where you can see it, so a wrong assumption costs one line to fix instead of a correction spiral, rework or a new session. Skip it for one obvious line.</p>
+    <div class="grid2">
+<pre><span class="c">Ask the plan for</span>
+Goal         one line, in your words
+Change       the files it will edit
+Don't touch  folders and files out of scope
+Approach     where the logic goes, and why
+Tests        cases, including the edge case
+Verify       the exact commands
+Open Qs      anything it had to guess</pre>
+      <div class="card">
+        <h2 style="font-size:11.5pt">Then treat it as the contract</h2>
+        <ul class="yes">
+          <li>Approve only what you've actually read</li>
+          <li>Build only what's in the plan</li>
+          <li>New evidence → stop and re-plan, don't patch around it</li>
+          <li>"Don't touch" is what stops drive-by refactors</li>
+          <li>Open questions are where bugs hide: answer them</li>
+        </ul>
+      </div>
+    </div>
+    <div class="flow">
+      <div><b>1 · Plan</b>Plan mode (Shift+Tab in both CLIs). It explores; the window fills.</div>
+      <div><b>2 · Save</b>"Write the approved plan to <code>plans/&lt;task&gt;.md</code>."</div>
+      <div><b>3 · Clear</b><code>/clear</code>. Exploration noise gone; the plan file and repo remain.</div>
+      <div><b>4 · Build</b>"Implement <code>plans/&lt;task&gt;.md</code>." A fresh, small window.</div>
+    </div>
+    <p style="margin-top:5px;color:var(--slate)">The plan file doubles as your handoff. A plan that just restates your prompt cost tokens and bought nothing.</p>
+  </section>
+
+  <section class="card">
+    <h2>Vibe habits that burn tokens</h2>
+    <div class="grid2">
+      <ul class="no">
+        <li>"Fix it" prompts with no file, rule or test</li>
+        <li>One chat for every goal of the day</li>
+        <li>Attaching a whole folder "just in case"</li>
+      </ul>
+      <ul class="no">
+        <li>Running the full test suite every turn</li>
+        <li>Five "no, not that" corrections in a row</li>
+        <li>The strongest model for a rename</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer><span>Xplor Technologies - CONFIDENTIAL</span><span>Vibe vs. Verified · 1 / 2</span></footer>
+</div>
+
+<div class="page">
+  <header>
+    <div><h1>Keep the window lean</h1><p>Context is a working set, not a warehouse: all of it is re-read every turn</p></div>
+    <div class="tag">Vibe vs. Verified<br>Cheat sheet</div>
+  </header>
+
+  <section>
+    <h2><span class="n">4</span>Same habits, two CLIs</h2>
+    <table>
+      <tr><th style="width:22%">Habit</th><th style="width:37%">Claude Code CLI · claude</th><th>Cursor CLI · agent</th></tr>
+      <tr><td>Plan before editing</td><td><b>Shift+Tab</b> until the footer says plan mode</td><td><b>Shift+Tab</b> cycles Agent → Plan → Ask · <code>/plan</code> · <code>/ask</code></td></tr>
+      <tr><td>Point at the code</td><td><code>@path/to/file</code>, then name the symbol</td><td><code>@path/to/file</code> or a folder, then name the symbol</td></tr>
+      <tr><td>See your context</td><td><code>/context</code> · <code>/statusline</code> showing context %</td><td>Custom status line with context % (<code>statusLine</code> in <code>~/.cursor/cli-config.json</code>)</td></tr>
+      <tr><td>See your spend</td><td><code>/usage</code> or <code>/cost</code></td><td>Usage on the cursor.com dashboard</td></tr>
+      <tr><td>Same goal, long chat</td><td><code>/compact &lt;what to keep&gt;</code></td><td><code>/summarize</code> (alias <code>/compress</code>)</td></tr>
+      <tr><td>New goal</td><td><code>/clear</code></td><td><code>/clear</code> (alias <code>/new-chat</code>)</td></tr>
+      <tr><td>Undo a wrong turn</td><td><b>Esc</b> to interrupt · <b>Esc Esc</b> or <code>/rewind</code></td><td><code>/rewind</code> · <b>Ctrl+R</b> to review changes</td></tr>
+      <tr><td>Right model for the job</td><td><code>/model</code></td><td><code>/model</code></td></tr>
+      <tr><td>Explore without bloat</td><td>Ask it to use a subagent to investigate</td><td><code>/fork</code> to explore, bring the answer back</td></tr>
+      <tr><td>Trim always-on tools</td><td><code>/mcp</code></td><td><code>/mcp list</code></td></tr>
+      <tr><td>Scripted, one-shot</td><td><code>claude -p "…"</code></td><td><code>agent -p "…"</code></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="n">5</span>Continue, compact or clear?</h2>
+    <div class="grid2">
+      <table>
+        <tr><th>Situation</th><th>Do</th><th>Keeps</th></tr>
+        <tr><td>Same goal, small</td><td>Continue</td><td>Everything</td></tr>
+        <tr><td>Same goal, long chat</td><td><code>/compact</code> · <code>/summarize</code></td><td>A summary you steer</td></tr>
+        <tr><td>New goal</td><td><code>/clear</code></td><td>Repo + plan file</td></tr>
+        <tr><td>Wrong turn</td><td><code>/rewind</code></td><td>All before it</td></tr>
+      </table>
+      <div class="card">
+        <b>Reset when…</b> the goal changes · it forgets a constraint you gave · it retries a failed fix · old logs no longer matter · context passes ~50% mid-task.<br>
+        <b>Compact well:</b> at a boundary, not mid-edit · say what to keep · restate the key constraint afterwards · don't wait for auto-compact to choose for you.
+      </div>
+    </div>
+    <p style="margin-top:5px">Clearing isn't losing work: <b>code, tests, docs, git and your plan file are the memory</b>; the transcript is scaffolding. No plan file? Write a ≤ 200-word handoff first.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">6</span>Progressive disclosure for agent docs</h2>
+    <div class="layer l0"><span class="k">0</span><span><b>Always loaded</b> · CLAUDE.md / AGENTS.md: commands, non-negotiables, pointers</span><span class="when">every turn · keep to ~1 screen</span></div>
+    <div class="layer l1"><span class="k">1</span><span><b>Routing map</b> · docs/architecture.md: which file owns what</span><span class="when">when locating code</span></div>
+    <div class="layer l2"><span class="k">2</span><span><b>Scoped rules</b> · .claude/rules/*.md with <code>paths:</code> · nested CLAUDE.md · Cursor: .cursor/rules/*.mdc with globs</span><span class="when">when matching files are touched</span></div>
+    <div class="layer l3"><span class="k">3</span><span><b>Deep docs</b> · decision records, runbooks, skills, specs</span><span class="when">only when changing that rule</span></div>
+    <p style="margin-top:5px">Write <b>pointers, not paragraphs</b>: <i>"Read docs/architecture.md only when you need to locate code."</i> After a bad session, put the lesson at the <b>narrowest layer</b> where it will still be found, not in CLAUDE.md. Disable MCP servers you aren't using: their tool definitions load every session.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">7</span>Pocket checklist</h2>
+    <div class="card">
+      <div class="phase"><b>BEFORE</b><span>One goal · acceptance criteria · name the files · plan if anything is uncertain · note context %</span></div>
+      <div class="phase"><b>DURING</b><span>Build only what the plan says · narrowest test first · re-plan when evidence changes</span></div>
+      <div class="phase"><b>SWITCHING</b><span>Save the plan or a handoff to a file · same goal → compact · new goal → /clear</span></div>
+      <div class="phase" style="margin:0"><b>AFTER</b><span>Verify · nothing unrelated changed · lessons go to the narrowest doc layer</span></div>
+    </div>
+  </section>
+
+  <footer><span>Xplor Technologies - CONFIDENTIAL · Practise on parcel-pilot: workshop/tasks 02, 05, 06, 07</span><span>Say what you know · Prove what you changed · Reset when the goal changes · 2 / 2</span></footer>
+</div>
+
+</body>
+</html>
